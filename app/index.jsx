@@ -4,11 +4,13 @@ import { hp, wp } from '../helpers/common';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import theme from '../constants/theme';
+import { useRouter } from 'expo-router';
 
 const WelcomeScreen = () => {
+    const router = useRouter();
     return (
         <View style={styles.container}>
-            <StatusBar style="light" />
+            <StatusBar style="dark" />
             <Image
                 source={require('../assets/images/welcome.png')}
                 style={styles.bgImage}
@@ -24,12 +26,16 @@ const WelcomeScreen = () => {
                 />
                 {/* Content */}
                 <View style={styles.contentContainer}>
-                    <Animated.View entering={FadeInDown.delay(200).duration(600)}>
+                    <Animated.View entering={FadeInDown.delay(400).springify()}>
                         <Text style={styles.title}>Pixels</Text>
+                    </Animated.View>
+
+                    <Animated.View entering={FadeInDown.delay(300).springify()}>
                         <Text style={styles.subtitle}>Every Pixel Tells a Story</Text>
                     </Animated.View>
-                    <Animated.View entering={FadeInDown.delay(400).duration(600)}>
-                        <Pressable style={styles.startButton}>
+
+                    <Animated.View entering={FadeInDown.delay(400).springify()}>
+                        <Pressable style={styles.startButton} onPress={() => router.push('home')}>
                             <Text style={styles.startText}>Get Started</Text>
                         </Pressable>
                     </Animated.View>
@@ -64,7 +70,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center',
         gap: 14,
-        paddingBottom: hp(3),
+        paddingBottom: hp(1),
         width: wp(100),
     },
     title: {
@@ -94,6 +100,7 @@ const styles = StyleSheet.create({
             width: 0,
             height: 2,
         },
+        cursor: 'pointer',
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
